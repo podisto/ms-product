@@ -5,9 +5,26 @@ logging:
 
 server:
   port: 8200
+  ssl:
+    enabled: true
+    key-store: classpath:msproduct.jks
+    key-store-password: msproduct
+    key-alias: msproduct
+    key-store-type: JKS
+    key-store-provider: SUN
+    trust-store: classpath:msproduct.jks
+    trust-store-password: msproduct
+    trust-store-type: JKS
 
 # Eureka server URL
 eureka:
+  instance:
+    non-secure-port-enabled: false
+    secure-port-enabled: true
+    secure-port: ${server.port}
+    status-page-url: https://localhost:${server.port}/info
+    health-check-url: https://localhost:${server.port}/health
+    home-page-url: https://localhost:${server.port}
   client:
     service-url:
-      default-zone: http://localhost:8761/eureka/
+      defaultZone: https://localhost:8761/eureka/
